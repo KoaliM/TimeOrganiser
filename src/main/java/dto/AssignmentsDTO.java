@@ -7,4 +7,7 @@ public class AssignmentsDTO {
     private String title;
     private Long userId;
     private Date dueDate;
+    private int priority;
+    private String status;
+
 }
