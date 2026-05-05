@@ -1,14 +1,12 @@
 package org.example.timeorganiser.controllers;
 
+import dto.UsersDTO;
 import org.example.timeorganiser.model.Users;
 import org.example.timeorganiser.services.UserService;
 import org.example.timeorganiser.utils.UserSpecifications;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
@@ -37,5 +35,17 @@ public class UserController {
 
         Specification<Users> spec = UserSpecifications.searchByFilters(name, city, startTime, endTime, minAge, maxAge);
         return ResponseEntity.ok(userRepository.findAll(spec));
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Users> updateUser(@PathVariable Integer userId, @RequestBody UsersDTO user) {
+        return ResponseEntity.ok(userService.updateProfile(userId, user));
+
     }
 }

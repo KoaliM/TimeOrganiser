@@ -15,6 +15,9 @@ public class Users {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
     @Column(name = "password")
     @JsonIgnore
     private String password;
@@ -45,8 +48,5 @@ public class Users {
 
     public void setUsersname(String username) {
         this.name = username;
-    }
-    public Users getUser(int userId){
-
     }
 }
