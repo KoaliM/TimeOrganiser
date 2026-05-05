@@ -24,4 +24,9 @@ public class UserService {
         String hashedPassword = passwordEncoder.encode(dto.getPassword());
         userRepository.save(user);
     }
+
+    public Users getUserById(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
 }
