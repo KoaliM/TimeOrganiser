@@ -2,6 +2,7 @@ package org.example.timeorganiser.controllers;
 
 import dto.LoginRequest;
 import dto.RegistrationRequest;
+import jakarta.validation.Valid;
 import org.example.timeorganiser.services.UserService;
 import org.example.timeorganiser.utils.JwtUtils;
 import org.springframework.http.ResponseEntity;
