@@ -1,5 +1,8 @@
 package dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class HobbiesDTO {
     @NotBlank(message = "Hobby name is required")
     @Size(min = 2, max = 40,message = "Hobby name must be between 2 and 40 characters")

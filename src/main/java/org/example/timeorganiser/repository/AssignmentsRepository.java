@@ -1,5 +1,6 @@
 package org.example.timeorganiser.repository;
 
+import dto.AssignmentDeadlineDTO;
 import org.example.timeorganiser.model.Assignments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,16 +17,14 @@ public interface AssignmentsRepository extends JpaRepository<Assignments, Intege
             "GROUP BY assignments.title" +
             "ORDER BY days_left ASC" +
             "LIMIT 3")
-    Optional<Assignments> findUrgentAssignments();
+    List<AssignmentDeadlineDTO> findUrgentAssignments();
 
     @Query("SELECT title FROM assignments" +
             "WHERE due_date >= :date")
-    Optional<Assignments> findAfterDate(@Param("date") Date date);
+    List<String> findAfterDate(@Param("date") Date date);
 
     @Query("SELECT assignments.title, TIMESTAMPDIFF(DAY,CURRENT_DATE(), assignments.due_date) AS days_left FROM assignments" +
-            "GROUP BY assignments.title")
-    Optional<Assignments> findLeftTime();
-
-    List<Assignments> allAssignments();
+            "GROUP BY assigments.title")
+    List<AssignmentDeadlineDTO> findLeftTime();
 
 }

@@ -1,4 +1,6 @@
 package org.example.timeorganiser.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dto.UsersDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,7 +15,12 @@ public class Users {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
     @Column(name = "password")
+    @JsonIgnore
+    private String password;
 
     @Column(name = "timezone", unique = true, nullable = false)
     private String timezone;
