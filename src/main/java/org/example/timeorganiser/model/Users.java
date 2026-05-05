@@ -39,4 +39,7 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private List<Hobbies> hobbies;
 
+    public void setUsersname(String username) {
+        this.name = username;
+    }
 }

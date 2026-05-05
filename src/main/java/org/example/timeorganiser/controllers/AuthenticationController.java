@@ -1,8 +1,11 @@
 package org.example.timeorganiser.controllers;
 
+import dto.LoginRequest;
 import dto.RegistrationRequest;
 import org.example.timeorganiser.services.UserService;
+import org.example.timeorganiser.utils.JwtUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.authentication.preauth.j2ee.J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +27,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest)
-}
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        String jwt = JwtUtils.generateToken(loginRequest.getUsername());
+
+        // 3. Return the token in a DTO
+        return ResponseEntity.ok(new JwtResponse(jwt));
+    }
+    }

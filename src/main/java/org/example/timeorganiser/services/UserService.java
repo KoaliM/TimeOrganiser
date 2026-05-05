@@ -3,6 +3,7 @@ package org.example.timeorganiser.services;
 import dto.RegistrationRequest;
 import org.example.timeorganiser.model.Users;
 import org.example.timeorganiser.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
