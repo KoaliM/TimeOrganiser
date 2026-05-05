@@ -13,6 +13,8 @@ public class Users {
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
+    @Column(name = "password")
+
     @Column(name = "timezone", unique = true, nullable = false)
     private String timezone;
 
@@ -37,4 +39,7 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private List<Hobbies> hobbies;
 
+    public void setUsersname(String username) {
+        this.name = username;
+    }
 }
