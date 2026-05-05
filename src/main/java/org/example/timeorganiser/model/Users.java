@@ -1,4 +1,5 @@
 package org.example.timeorganiser.model;
+import dto.UsersDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -41,5 +42,8 @@ public class Users {
 
     public void setUsersname(String username) {
         this.name = username;
+    }
+    public Users getUser(int userId){
+
     }
 }

@@ -1,6 +1,8 @@
 package org.example.timeorganiser.model;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "desired_meetings")
 public class DesiredMeetings {
@@ -15,4 +17,10 @@ public class DesiredMeetings {
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Users partner;
+
+    @Column(name = "start time")
+    private LocalDateTime startTime;
+
+    @Column(name = "end time")
+    private LocalDateTime endTime;
 }
