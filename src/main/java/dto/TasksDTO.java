@@ -1,5 +1,8 @@
 package dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.text.ParseException;
 import java.util.Date;
 

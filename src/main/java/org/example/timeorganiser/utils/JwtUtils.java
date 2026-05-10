@@ -2,13 +2,13 @@ package org.example.timeorganiser.utils;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -20,7 +20,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     private Key key(){
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
     public String generateToken(String username){
         return Jwts.builder()
@@ -35,7 +35,7 @@ public class JwtUtils {
         return Jwts.parser()
                 .verifyWith((SecretKey) key())
                 .build()
-                .parseUnsecuredClaims(token)
+                .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
     }

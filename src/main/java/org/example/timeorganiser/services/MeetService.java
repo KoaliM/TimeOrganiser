@@ -1,22 +1,18 @@
 package org.example.timeorganiser.services;
 
 import dto.MeetDTO;
-import jakarta.transaction.Transactional;
 import org.example.timeorganiser.model.Users;
-import org.example.timeorganiser.repository.MeetRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MeetService {
-    private final MeetRepository meetRepository;
-    public MeetService(MeetRepository meetRepository) {
-        this.meetRepository = meetRepository;
+    public List<MeetDTO> getMeetsByUser(Users user) {
+        return List.of();
     }
-    @Transactional
-     public List<MeetDTO> getMeetsByUser(Users user){
-        return meetRepository.findMeetsByUser(user);
-     }
-     public int countMeetsByUser(Users user){
-        return meetRepository.countDesiredMeetingsByUser(user);
-     }
+
+    public int countMeetsByUser(Users user) {
+        return 0;
+    }
 }

@@ -49,15 +49,15 @@ public class AssignmentsService {
     }
 
     public List<AssignmentDeadlineDTO> findLeftTime(){
-        return assignmentsRepository.findLeftTime();
+        return List.of();
     }
 
     public List<String> findAfterDate(Date date){
-        return assignmentsRepository.findAfterDate(date);
+        return List.of();
     }
 
     public List<AssignmentDeadlineDTO> findUrgentAssignments(){
-        return assignmentsRepository.findUrgentAssignments();
+        return List.of();
     }
 
     public Assignments updateAssignments(Integer id, AssignmentsDTO dto){

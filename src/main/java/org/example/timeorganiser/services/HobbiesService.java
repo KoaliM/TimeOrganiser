@@ -26,13 +26,13 @@ public class HobbiesService {
 
     @Transactional
     public List<Hobbies> getAllHobbies(){
-        hobbiesRepository.findAll();
+        return hobbiesRepository.findAll();
     }
     public Hobbies createHobbies(@RequestBody HobbiesDTO hobbies) {
         return hobbiesRepository.save(modelMapper.map(hobbies, Hobbies.class));
     }
 
-    public HobbiesDTO getHobbiesById(@PathVariable Integer id){
+    public Hobbies getHobbiesById(@PathVariable Integer id){
         if(!hobbiesRepository.existsById(id)){
             throw new EntityNotFoundException("Hobby not found");
         }

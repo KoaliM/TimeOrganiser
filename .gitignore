@@ -35,3 +35,20 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Maven ###
+target/
+
+### Frontend ###
+TimeOrganiserFrontend/node_modules/
+TimeOrganiserFrontend/**/node_modules/
+TimeOrganiserFrontend/dist/
+TimeOrganiserFrontend/**/dist/
+TimeOrganiserFrontend/build/
+TimeOrganiserFrontend/**/build/
+TimeOrganiserFrontend/.env
+TimeOrganiserFrontend/.env.*
+TimeOrganiserFrontend/**/.env
+TimeOrganiserFrontend/**/.env.*
+!TimeOrganiserFrontend/package-lock.json
+!TimeOrganiserFrontend/**/package-lock.json

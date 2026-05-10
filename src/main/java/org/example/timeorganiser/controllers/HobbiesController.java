@@ -1,46 +1,57 @@
 package org.example.timeorganiser.controllers;
 
-import dto.HobbiesDTO;
-import org.example.timeorganiser.model.Hobbies;
-import org.example.timeorganiser.services.HobbiesService;
+import org.example.timeorganiser.integration.IntegrationData;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/hobbies")
 public class HobbiesController {
-    private final HobbiesService hobbiesService;
-
-    public  HobbiesController(HobbiesService hobbiesService) {
-        this.hobbiesService = hobbiesService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<Hobbies>> getAllHobbies(){
-        return ResponseEntity.ok(hobbiesService.getAllHobbies());
+    public ResponseEntity<List<Map<String, Object>>> getAllHobbies() {
+        return ResponseEntity.ok(IntegrationData.hobbies());
     }
 
     @PostMapping
-    public ResponseEntity<HobbiesDTO> createHobbies(@RequestBody HobbiesDTO dto){
-        return ResponseEntity.ok(hobbiesService.)
+    public ResponseEntity<Map<String, Object>> createHobbies(@RequestBody Map<String, Object> hobby) {
+        IntegrationData.hobbies().add(hobby);
+        return ResponseEntity.ok(hobby);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<HobbiesDTO> getHobbiesById(@PathVariable Integer id){
-        return ResponseEntity.ok(hobbiesService.getHobbiesById(id));
+    @PutMapping("/{title}/status")
+    public ResponseEntity<Map<String, Object>> updateStatus(@PathVariable String title, @RequestBody Map<String, Object> body) {
+        return updateByTitle(title, body);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<HobbiesDTO> updateHobby(@PathVariable Integer id, @RequestBody HobbiesDTO dto){
-        return ResponseEntity.ok(hobbiesService.updateHobby(id));
+    @PutMapping("/{title}")
+    public ResponseEntity<Map<String, Object>> updateHobby(@PathVariable String title, @RequestBody Map<String, Object> body) {
+        return updateByTitle(title, body);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HobbiesDTO> deleteHobby(@PathVariable Integer id){
-        hobbiesService.deleteHobby(id);
+    @DeleteMapping("/{title}")
+    public ResponseEntity<Void> deleteHobby(@PathVariable String title) {
+        IntegrationData.hobbies().removeIf(item -> title.equalsIgnoreCase(String.valueOf(item.get("title"))));
         return ResponseEntity.noContent().build();
     }
 
+    private ResponseEntity<Map<String, Object>> updateByTitle(String title, Map<String, Object> body) {
+        return IntegrationData.hobbies().stream()
+                .filter(item -> title.equalsIgnoreCase(String.valueOf(item.get("title"))))
+                .findFirst()
+                .map(item -> {
+                    item.putAll(body);
+                    return ResponseEntity.ok(item);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
